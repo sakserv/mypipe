@@ -106,6 +106,12 @@ class KafkaMutationGenericAvroWithDateProducer(config: Config)
           if (v.isDefined) strings.put(c.metadata.name, v.get)
         })
 
+      case (ColumnType.DATE, columns) ⇒
+        columns.foreach(c ⇒ {
+          val v = c.valueOption[String]
+          if (v.isDefined) strings.put(c.metadata.name, v.get)
+        })
+
       case (ColumnType.LONG, columns) ⇒
         columns.foreach(c ⇒ {
           // this damn thing can come in as an Integer or Long
