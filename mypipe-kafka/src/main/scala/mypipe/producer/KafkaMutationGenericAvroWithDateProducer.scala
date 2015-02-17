@@ -108,8 +108,11 @@ class KafkaMutationGenericAvroWithDateProducer(config: Config)
 
       case (ColumnType.DATE, columns) ⇒
         columns.foreach(c ⇒ {
-          val v = c.valueOption[java.util.Date]
-          if (v.isDefined) strings.put(c.metadata.name, v.toString)
+          val v = c.value match {
+            case d: java.util.Date => d.toString
+            case null                 ⇒ null
+          }
+          if (v != null) strings.put(c.metadata.name, v)
         })
 
       case (ColumnType.LONG, columns) ⇒
