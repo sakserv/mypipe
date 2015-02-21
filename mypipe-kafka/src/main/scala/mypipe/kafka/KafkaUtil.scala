@@ -8,11 +8,11 @@ object KafkaUtil {
     genericTopic(mutation.table.db, mutation.table.name)
 
   def genericTopic(db: String, table: String) =
-    s"${db}_${table}_generic"
+    s"${db}_generic"
 
   def specificTopic(mutation: Mutation[_]): String =
     specificTopic(mutation.table.db, mutation.table.name)
 
   def specificTopic(db: String, table: String): String =
-    s"${db}_${table}_specific"
+    s"${db}_specific"
 }
